@@ -1,10 +1,14 @@
 /**
  * Permission Request Utilities
+ * Server-side only - uses Firebase Admin SDK
  */
 
 import { db, collections } from './firebaseAdmin';
 import type { PermissionRequest, LandownerResponse, PermissionRequestStatus } from './types';
 import { FieldValue } from 'firebase-admin/firestore';
+
+// Re-export client-safe utilities
+export { formatDate, calculateDuration, isRequestExpired } from './utils';
 
 /**
  * Get permission request by ID
@@ -107,34 +111,6 @@ export async function createPermissionRequest(
     console.error('[Permissions] Error creating request:', error);
     throw new Error('Failed to create permission request');
   }
-}
-
-/**
- * Check if request is expired
- */
-export function isRequestExpired(request: PermissionRequest): boolean {
-  const now = Date.now();
-  // Request expires if it's been pending for more than 30 days
-  const thirtyDaysAgo = now - 30 * 24 * 60 * 60 * 1000;
-  return request.status === 'pending' && request.createdAt < thirtyDaysAgo;
-}
-
-/**
- * Format date for display
- */
-export function formatDate(timestamp: number): string {
-  return new Date(timestamp).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
-}
-
-/**
- * Calculate duration in days
- */
-export function calculateDuration(startDate: number, endDate: number): number {
-  return Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
 }
 
 /**

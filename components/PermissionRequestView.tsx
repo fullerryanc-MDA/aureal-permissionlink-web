@@ -7,7 +7,7 @@
 
 import type { PermissionRequest } from '@/lib/types';
 import { ACTIVITY_LABELS } from '@/lib/types';
-import { formatDate, calculateDuration } from '@/lib/permissions';
+import { formatDate, calculateDuration } from '@/lib/utils';
 import PropertyMap from './PropertyMap';
 
 interface Props {
