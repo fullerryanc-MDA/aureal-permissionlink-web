@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply antialiased;
+  }
+
+  body {
+    @apply text-aureal-text-primary;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-aureal-card rounded-2xl p-6 border border-aureal-text-secondary/20;
+  }
+
+  .btn-primary {
+    @apply bg-aureal-green hover:bg-aureal-green/90 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-aureal-card hover:bg-aureal-card/80 text-aureal-text-primary font-semibold py-3 px-6 rounded-xl border-2 border-aureal-text-secondary/30 transition-all duration-200 active:scale-95;
+  }
+
+  .input {
+    @apply w-full bg-aureal-slate/70 border border-aureal-text-secondary/20 rounded-lg px-4 py-3 text-aureal-text-primary placeholder-aureal-text-muted focus:outline-none focus:border-aureal-gold focus:ring-2 focus:ring-aureal-gold/20 transition-all;
+  }
+
+  .textarea {
+    @apply input min-h-[100px] resize-y;
+  }
+
+  .label {
+    @apply block text-sm font-semibold text-aureal-text-primary mb-2;
+  }
+
+  .info-row {
+    @apply flex items-center gap-3 p-4 bg-aureal-slate/50 rounded-lg;
+  }
+}
