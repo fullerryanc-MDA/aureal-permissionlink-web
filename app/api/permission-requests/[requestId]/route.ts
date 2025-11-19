@@ -33,7 +33,7 @@ export async function GET(
     }
 
     // Check if expired
-    if (isRequestExpired(permissionRequest)) {
+    if (isRequestExpired(permissionRequest.createdAt, permissionRequest.status)) {
       return NextResponse.json(
         {
           error: 'This permission request has expired',
