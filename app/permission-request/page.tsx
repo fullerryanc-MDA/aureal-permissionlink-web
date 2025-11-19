@@ -5,7 +5,7 @@
  * URL: /permission-request?token=<requestId>
  */
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import type { PermissionRequest, LandownerResponse } from '@/lib/types';
 import PermissionRequestView from '@/components/PermissionRequestView';
@@ -13,7 +13,7 @@ import LandownerForm from '@/components/LandownerForm';
 
 type PageState = 'loading' | 'loaded' | 'error' | 'expired' | 'submitted';
 
-export default function PermissionRequestPage() {
+function PermissionRequestContent() {
   const searchParams = useSearchParams();
   const [state, setState] = useState<PageState>('loading');
   const [request, setRequest] = useState<PermissionRequest | null>(null);
@@ -171,5 +171,21 @@ export default function PermissionRequestPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Wrap in Suspense to handle useSearchParams
+export default function PermissionRequestPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-aureal-gold border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-aureal-text-secondary text-lg">Loading...</p>
+        </div>
+      </div>
+    }>
+      <PermissionRequestContent />
+    </Suspense>
   );
 }
